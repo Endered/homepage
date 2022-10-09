@@ -166,11 +166,11 @@ function fmt(template, values) {
       (wrapped-lambda
        ()
        (let ((interval (set-interval
-			(wrap-function
-			 (lambda ()
-			   (set-age-value (cps-call Math.floor (* 10000 (cps-call Math.random))))))
+			(wrapped-lambda
+			 ()
+			 (set-age-value (cps-call Math.floor (* 10000 (cps-call Math.random)))))
 			10000)))
-	 (wrap-function (lambda () (cps-call clearInterval interval)))))
+	 (wrapped-lambda () (cps-call clearInterval interval))))
       (array)))
    (</ <div ("className" = "section") >
        (</ <h2 > "自己紹介")
