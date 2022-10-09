@@ -227,10 +227,11 @@ function fmt(template, values) {
 (define blog-url "https://lunabbit.hatenablog.com/")
 (define link-size 100)
 (define image-height 200)
+(define code-url "https://github.com/Endered/homepage/blob/master/lisp/App.scm")
 
 (define (<app)
   (</ <div >
-      (</ <h1 > "このページのソースコード" "TODO")
+      (</ <h1 > "このページのソースコード" (</ <a ("href" = code-url) ("target" = "_blank") > "ここ"))
       (</ <person ("name" = myname) ("age" = myage) ("portrait" = itsme) >)
       (</ <skills ("skills" = (map (lambda (c) (make-table ("name" (car c)) ("description" (cdr c))))
 				   (list 
