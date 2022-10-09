@@ -5,9 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: gray;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.hoge {
+    background-color: red;
+}
+
+.section {
+    padding: 1px 10px;
+}
+
+.skill-name {
+}
+
+.fate {
+    padding: 10px 0px;
+    display: flex;
+}
+
+.fate-date {
+    width: 160px;
 }
