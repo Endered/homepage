@@ -75,12 +75,12 @@ function fmt(template, values) {
   (list->array array-elements))
 
 (define (zip-with-index lst)
-    (define (rec n lst)
-      (if (null? lst)
-	  ()
-	  (cons (cons n (car lst))
-		(rec (+ n 1) (cdr lst)))))
-    (rec 0 lst))
+  (define (rec n lst)
+    (if (null? lst)
+	()
+	(cons (cons n (car lst))
+	      (rec (+ n 1) (cdr lst)))))
+  (rec 0 lst))
 
 (defmacro (make-table . binds)
   `(let ((res (make-empty-table)))
