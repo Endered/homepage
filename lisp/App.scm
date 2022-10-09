@@ -55,6 +55,9 @@ function fmt(template, values) {
 (define (wrap-function f)
   (wrap_function f))
 
+(define (set-interval f delay)
+  (cps-call setInterval f delay))
+
 (define (make-empty-table)
   (cps-call make_empty_table))
 
@@ -110,6 +113,9 @@ function fmt(template, values) {
   `(define (,symbol . args)
      (apply react-create-element ,tag args)))
 
+(defmacro (wrapped-lambda args . body)
+  `(wrap-function (lambda ,args ,@body)))
+
 (define-html-tag <a "a")
 (define-html-tag <img "img")
 (define-html-tag <h1 "h1")
@@ -151,14 +157,14 @@ function fmt(template, values) {
    (begin
      (cps-call
       React.useEffect
-      (wrap-function
-       (lambda ()
-	 (let ((interval (cps-call setInterval
-				   (wrap-function
-				    (lambda ()
-				      (set-age-value (cps-call Math.floor (* 10000 (cps-call Math.random))))))
-				   10000)))
-	   (wrap-function (lambda () (cps-call clearInterval interval))))))
+      (wrapped-lambda
+       ()
+       (let ((interval (set-interval
+			(wrap-function
+			 (lambda ()
+			   (set-age-value (cps-call Math.floor (* 10000 (cps-call Math.random))))))
+			10000)))
+	 (wrap-function (lambda () (cps-call clearInterval interval)))))
       (array)))
    (</ <div ("className" = "section") >
        (</ <h2 > "自己紹介")
