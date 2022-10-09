@@ -17,6 +17,10 @@ let wrap_function = (cont,f) => {
     return cont((...args) => lisp_engine(f(lisp_result,...args)))
 }
 
+let UseEffect = (cont, ...args) => {
+    return cont(React.useEffect(...args))
+}
+
 let react_create_element = (cont,component,...args) => {
     return cont(React.createElement(component,...args))
 }
@@ -48,6 +52,9 @@ function fmt(template, values) {
     (set-value 1))
    (array value (lambda (v)
 		  (cps-call set-value v)))))
+
+(define (use-effect f . other-args)
+  (apply UseEffect f other-args))
 
 (define (wrap component)
   (wrap_functional_component component))
@@ -155,8 +162,7 @@ function fmt(template, values) {
     ((age-value 0)
      (set-age-value 1)))
    (begin
-     (cps-call
-      React.useEffect
+     (use-effect
       (wrapped-lambda
        ()
        (let ((interval (set-interval
